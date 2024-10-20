@@ -3,6 +3,7 @@ var router = express.Router();
 const User = require('../models/user');
 const multer = require('multer');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
 // Configuração do multer para salvar imagens na pasta "uploads"
 const storage = multer.diskStorage({
@@ -31,6 +32,7 @@ router.get('/', async function (req, res, next) {
         });
     }
 });
+
 
 // POST: Criar um novo usuário (agora com upload de foto de perfil)
 router.post('/', upload.single('profileImage'), async function (req, res, next) {
@@ -131,5 +133,40 @@ router.patch('/:id', upload.single('profileImage'), async function (req, res, ne
         });
     }
 });
+
+router.post('/signin', async (req, res) => {
+    const { email, password } = req.body;
+  
+    // Verifica se o email foi fornecido
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+    }
+  
+    try {
+      // Busca o usuário pelo email no banco de dados
+      const user = await User.findOne({ email });
+  
+      // Se o usuário não for encontrado
+      if (!user) {
+        return res.status(404).json({ message: 'Usuário não encontrado.' });
+      }
+  
+      // Compara a senha fornecida com a senha criptografada no banco de dados
+      const isMatch = await password=== user.password;
+  
+      // Se a senha estiver correta
+      if (isMatch) {
+        // Retorna uma resposta de sucesso, por exemplo, um token JWT ou mensagem de sucesso
+        res.status(200).json({ message: 'Login bem-sucedido.', objUserRecuperados: user});
+      } else {
+        // Se a senha não coincidir
+        res.status(400).json({ message: 'Senha inválida.' });
+      }
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Erro no servidor.' });
+    }
+  });
 
 module.exports = router;

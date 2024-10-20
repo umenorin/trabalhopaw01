@@ -20,7 +20,6 @@ router.get('/', async function (req, res, next){
 router.post('/', async function (req, res, next) {
     const messageObject = new Message ({
         content: req.body.content
-
     });
     console.log("Estou recebendo uma mensagem nova")
     try{

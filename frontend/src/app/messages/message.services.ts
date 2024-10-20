@@ -30,7 +30,7 @@ export class MessageService {
                 console.log(responseRecebida);
                 console.log({content: responseRecebida.objSMessageSRecuperadoS[0].content})
                 console.log({_id: responseRecebida.objSMessageSRecuperadoS[0]._id})
-
+                
                 const messageSResponseRecebida = responseRecebida.objSMessageSRecuperadoS;
 
                 let transFomedCastMessagesModelFrontend: Message[] =[];

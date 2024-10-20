@@ -26,7 +26,7 @@ export class SigninComponent {
       response => {
         // Sucesso no login
         console.log('Login bem-sucedido:', response);
-        this.router.navigate(['/messages']); // Redirecionar para a tela de mensagens
+        this.router.navigate(['/mensagens']); // Redirecionar para a tela de mensagens
       },
       error => {
         // Falha no login

@@ -3,7 +3,7 @@ import { Message } from './message.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MessageService } from './message.services';
-
+import { User } from '../auth/user.model';
 @Component({
   selector: 'app-message',
   standalone: true,
