@@ -1,0 +1,19 @@
+<!-- <input type="text" [(ngModel)]="messageVarClasse().content">
+<input type="text" [(ngModel)]="messageVarClasse().username"> -->
+<br>
+<article class="panel panel-default" [ngStyle]="{backgroundColor: color}">
+  
+  <div class="panel-body">
+    {{ messageVarClasse().content }}
+  </div>
+  <footer class="panel-footer">
+    <div class="author">
+      {{ messageVarClasse().username }}
+    </div>
+    <div class="config">
+      <a (click)="onEdit()">Edit</a>
+      <!-- Exemplo de botão para emitir o evento -->
+      <a (click)="onDelete()">Delete</a>
+    </div>
+  </footer>
+</article>
