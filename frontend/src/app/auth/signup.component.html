@@ -2,14 +2,15 @@
 <div class="col-md-8 col-md-offset-2">
   <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <!-- Nome -->
+    <br/>
     <div class="form-group">
-      <label for="firstName">Nome:</label>
+      <label for="firstName">Nome:</label><br/>
       <input type="text" id="firstName" class="form-control" formControlName="firstNameTS">
     </div>
     @if(myForm.get('firstNameTS')?.errors?.['required'] && myForm.get('firstNameTS')?.touched){
         <div><p style="color: red;">NOME OBRIGATÓRIO</p></div>
     }
-
+    <br/>
     <!-- Sobrenome -->
     <div class="form-group">
       <label for="lastName">Sobrenome:</label>
@@ -24,7 +25,7 @@
     @if(myForm.get('lastNameTS')?.errors?.['maxlength'] && myForm.get('lastNameTS')?.touched){
         <div><p style="color: red;">SOBRENOME DEVE TER NO MÁXIMO 16 CARACTERES</p></div>
     }
-
+    <br/>
     <!-- Email -->
     <div class="form-group">
       <label for="email">Email:</label>
@@ -36,7 +37,7 @@
     @if(myForm.get('emailTS')?.errors?.['pattern'] && myForm.get('emailTS')?.touched){
         <div><p style="color: red;">EMAIL INVÁLIDO</p></div>
     }
-
+    <br/>
     <!-- Senha -->
     <div class="form-group">
       <label for="pass">Senha:</label>
@@ -45,12 +46,12 @@
     @if(myForm.get('passwordTS')?.errors?.['required'] && myForm.get('passwordTS')?.touched){
         <div><p style="color: red;">SENHA OBRIGATÓRIA</p></div>
     }
-
+    <br/>
     <!-- Gênero -->
     <div class="form-group">
       <label>Gênero:</label>
       <div>
-        <label style="margin-left: 10px;">
+        <label style="margin-top: 5px;">
           <input type="radio" formControlName="genderTS" value="male"> Masculino
         </label>
         <label style="margin-left: 10px;">
@@ -65,7 +66,7 @@
         <div><p style="color: red;">GÊNERO OBRIGATÓRIO</p></div>
     }
 
-
+    <br/>
     <!-- Estado Civil -->
     <div class="form-group">
       <label for="civilStatus">Estado Civil:</label>
@@ -80,7 +81,7 @@
     @if(myForm.get('civilStatusTS')?.errors?.['required'] && myForm.get('civilStatusTS')?.touched){
         <div><p style="color: red;">ESTADO CIVIL OBRIGATÓRIO</p></div>
     }
-
+    <br/>
     <!-- Foto de Perfil -->
     <div class="form-group">
       <label for="profilePicture">Foto de Perfil (URL):</label>
@@ -96,6 +97,7 @@
     @if(myForm.get('termsAcceptedTS')?.errors?.['requiredTrue'] && myForm.get('termsAcceptedTS')?.touched){
       <div><p style="color: red;">Você deve aceitar os Termos de Uso para continuar</p></div>
     }
+    <br/>
     <!-- Botão de Enviar -->
     <br/>
     <button class="btn btn-primary" type="submit" [disabled]="!myForm.valid">Cadastrar</button>
