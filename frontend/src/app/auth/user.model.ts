@@ -1,4 +1,3 @@
-import { Message } from "../messages/message.model";
 export class User {
     constructor(
         public firstName: string,
@@ -7,9 +6,8 @@ export class User {
         public email: string,
         public gender: string,
         public civilStatus: string,
-        public messages:Message[],
-        public userId: string
-    ) {
-        
-        }
+        public profilePicture?: string, // campo opcional para foto de perfil
+        public userId?: string,
+        public messages?: string[] // IDs das mensagens relacionadas ao usuário
+    ) {}
 }
