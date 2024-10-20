@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user.model'; 
+import { User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    private baseUrl = 'http://localhost:3000/user'; 
+    private baseUrl = 'http://localhost:3000/user';
 
     constructor(private http: HttpClient) {}
 
@@ -32,5 +32,10 @@ export class UserService {
     // Método para deletar um usuário
     deleteUser(userId: string): Observable<any> {
         return this.http.delete(`${this.baseUrl}/${userId}`);
+    }
+
+    // Método para autenticar um usuário
+    login(email: string, password: string): Observable<any> {
+        return this.http.post<any>(`${this.baseUrl}/signin`, { email, password });
     }
 }
