@@ -26,25 +26,21 @@ export class MessageService {
 
     getMessages(): Observable<any> {
         return this.http.get<any>(`${this.baseUrl}/message`).pipe(
-            map((responseRecebida: any)=> {
-                console.log(responseRecebida);
-                console.log({content: responseRecebida.objSMessageSRecuperadoS[0].content})
-                console.log({_id: responseRecebida.objSMessageSRecuperadoS[0]._id})
-                
+            map((responseRecebida: any) => {
                 const messageSResponseRecebida = responseRecebida.objSMessageSRecuperadoS;
-
-                let transFomedCastMessagesModelFrontend: Message[] =[];
-                for(let msg of messageSResponseRecebida){
+            
+                let transFomedCastMessagesModelFrontend: Message[] = [];
+                for (let msg of messageSResponseRecebida) {
+                    // Verifique se o campo user está presente e tem um nome
+                    const username = msg.user && msg.user.firstName ? msg.user.firstName : 'Usuário desconhecido';
+            
                     transFomedCastMessagesModelFrontend.push(
-                        new Message(msg.content, 'Vinicius', msg._id)
+                        new Message(msg.content, username, msg._id, msg.user ? msg.user._id : null)
                     );
-
                 }
+            
                 this.messageSService = [...transFomedCastMessagesModelFrontend];
                 responseRecebida.objSMessageSRecuperadoS = this.messageSService;
-                console.log({myMsgSucesso: responseRecebida.myMsgSucesso})
-                console.log({content: responseRecebida.objSMessageSRecuperadoS[0].content})
-                console.log({id: responseRecebida.objSMessageSRecuperadoS[0].messageId})
                 return responseRecebida;
             }),
             catchError((e) => this.errorHandler(e,"getMessages("))

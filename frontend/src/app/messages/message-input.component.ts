@@ -15,26 +15,33 @@ export class MessageInputComponent {
     private messageService = inject(MessageService);
     @Input() user: User | null = null;  // Recebe o usuário como input
 
-    onSubmit(form: NgForm) {
-        console.log(`Form submitted with: ${form.value.myContentngForm}`);
+   onSubmit(form: NgForm) {
+    console.log(`Form submitted with: ${form.value.myContentngForm}`);
 
-        // Verifique se o usuário está definido antes de prosseguir
-        if (this.user) {
-            const messageAux = new Message(form.value.myContentngForm, this.user.firstName);
+    // Verifique se o usuário está definido antes de prosseguir
+    if (this.user) {
+        console.log(`UserId encontrado: ${this.user.userId}`);  // Isso deve mostrar o userId no console
+        const messageAux = new Message(
+            form.value.myContentngForm,  // conteúdo da mensagem
+            this.user.firstName,          // nome do usuário
+            undefined,                    // messageId não existe no início
+            this.user.userId              // userId correto
+        );
 
-            this.messageService.addMessage(messageAux)
-                .subscribe({
-                    next: (dadosSucesso: any) => {
-                        console.log('Mensagem enviada com sucesso:', dadosSucesso);
-                    },
-                    error: (dadosErro) => {
-                        console.error('Erro ao enviar mensagem:', dadosErro);
-                    }
-                });
-        } else {
-            console.error('Usuário não está definido!');
-        }
-
-        form.reset(); // Limpa o formulário após o envio
+        this.messageService.addMessage(messageAux)
+            .subscribe({
+                next: (dadosSucesso: any) => {
+                    console.log('Mensagem enviada com sucesso:', dadosSucesso);
+                },
+                error: (dadosErro) => {
+                    console.error('Erro ao enviar mensagem:', dadosErro);
+                }
+            });
+    } else {
+        console.error('Usuário não está definido!');
     }
+
+    form.reset(); // Limpa o formulário após o envio
+}
+
 }
